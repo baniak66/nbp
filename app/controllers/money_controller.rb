@@ -16,6 +16,13 @@ class MoneyController < ApplicationController
     #get latest exchange rates and save to db
     #can be helpful:
     #http://www.nbp.pl/home.aspx?f=/kursy/instrukcja_pobierania_kursow_walut.html
+    @exchanges = Exchange.all
+    ex_before = Exchange.count
+    @exchange = Exchange.new
+    @exchange.save_current_rates
+    if ex_before = (ex_before + 1)
+      redirect_to money_index_path, notice: 'New exchange added!'
+    end
   end
 
   def report
