@@ -4,6 +4,9 @@ class Exchange < ActiveRecord::Base
   has_many :currencies
   accepts_nested_attributes_for :currencies
 
+  validates :name, presence: true
+  validates :name, uniqueness: true
+
   def get_nbp_xml
     download = open('http://www.nbp.pl/kursy/xml/LastC.xml')
     # IO.copy_stream(open('http://www.nbp.pl/kursy/xml/LastC.xml'), 'LastC.xml')

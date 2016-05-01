@@ -17,11 +17,14 @@ class MoneyController < ApplicationController
     #can be helpful:
     #http://www.nbp.pl/home.aspx?f=/kursy/instrukcja_pobierania_kursow_walut.html
     @exchanges = Exchange.all
-    ex_before = Exchange.count
+    ex_before = Exchange.all.count
     @exchange = Exchange.new
     @exchange.save_current_rates
-    if ex_before = (ex_before + 1)
+    ex_after = Exchange.all.count
+    unless ex_before == ex_after
       redirect_to money_index_path, notice: 'New exchange added!'
+    else
+      redirect_to money_index_path, flash: {error: 'New exchange not available!'}
     end
   end
 
