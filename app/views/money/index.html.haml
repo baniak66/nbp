@@ -1,0 +1,12 @@
+%h3 Exchanges
+
+%table.table
+  %tr
+    %th Rate
+    %th Day
+    %th
+  -@exchanges.each do |e|
+    %tr
+      %td= e.name
+      %td= e.created_at
+      %td= link_to 'Details', money_path(e), class: 'btn btn-default btn-sm'

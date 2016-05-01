@@ -1,0 +1,23 @@
+%h3= @exchange.name
+
+%h3 Currencies
+
+%table.table
+  %tr
+    %th Name
+    %th Converter
+    %th Code
+    %th Buy price
+    %th Sell price
+    %th
+  -@exchange.currencies.each do |c|
+    %tr
+      %td= c.name
+      %td= c.converter
+      %td= c.code
+      %td= c.buy_price
+      %td= c.sell_price
+      %td= link_to 'Report', report_path, class: 'btn btn-default btn-sm'
+
+
+
