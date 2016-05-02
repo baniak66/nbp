@@ -7,8 +7,8 @@ class Exchange < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
 
-  def get_nbp_xml
-    download = open('http://www.nbp.pl/kursy/xml/LastC.xml')
+  def get_nbp_xml(file='LastC')
+    download = open("http://www.nbp.pl/kursy/xml/#{file}.xml")
     # IO.copy_stream(open('http://www.nbp.pl/kursy/xml/LastC.xml'), 'LastC.xml')
     ex_hash = Hash.from_xml(download)
     ex_name = ex_hash['tabela_kursow']['numer_tabeli']
@@ -22,6 +22,12 @@ class Exchange < ActiveRecord::Base
     positions.map! do |p|
       p.map {|k, v| [key_map[k], v] }.to_h
     end
+
+    positions.each do |p|
+      p.fetch('buy_price').gsub!(',', '.')
+      p.fetch('sell_price').gsub!(',', '.')
+    end
+
     params = { exchange: {
       name: ex_name, currencies_attributes: [
         positions
