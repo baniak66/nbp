@@ -1,1 +1,6 @@
-report.html.haml
+%h3= @currency.first.name
+
+%h4 Average: #{sprintf('%.4f', @currency.average(:buy_price))}
+
+%h4 Median: #{sprintf('%.4f', median(@currency.pluck(:buy_price)))}
+

@@ -3,7 +3,7 @@ class MoneyController < ApplicationController
   def index
     #show list of exchange rates with creation time
     #don't forget about pagination
-    @exchanges = Exchange.all
+    @exchanges = Exchange.paginate(:page => params[:page], :per_page => 10)
   end
 
   def show
@@ -29,6 +29,7 @@ class MoneyController < ApplicationController
   end
 
   def report
+    @currency = Currency.all.where(code: params[:code])
     #generate a report for selected currency
     #report should show: basic statistics: mean, median, average
     #also You can generate a simple chart(use can use some js library)

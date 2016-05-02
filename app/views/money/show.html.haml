@@ -17,7 +17,7 @@
       %td= c.code
       %td= c.buy_price
       %td= c.sell_price
-      %td= link_to 'Report', report_path, class: 'btn btn-default btn-sm'
+      %td= link_to 'Report', report_path(code: c.code), class: 'btn btn-default btn-sm'
 
 
 
