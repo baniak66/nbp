@@ -1,6 +1,45 @@
-%h3= @currency.first.name
+= javascript_include_tag "https://www.google.com/jsapi", "chartkick"
+= javascript_include_tag "path/to/highcharts.js", "chartkick"
 
-%h4 Average: #{sprintf('%.4f', @currency.average(:buy_price))}
 
-%h4 Median: #{sprintf('%.4f', median(@currency.pluck(:buy_price)))}
+%h3= @currencies.first.name
+
+.row
+  .col-md-5
+    %h4 Current buy price: #{sprintf('%.4f', @currencies.first.buy_price)}
+    %h4 Current sell price: #{sprintf('%.4f', @currencies.first.sell_price)}
+    .row
+      .col-md-6
+        %h5 Buy stats (10 courses)
+        %h5 Average: #{sprintf('%.4f', @currencies.average(:buy_price))}
+        %h5 Median #{sprintf('%.4f', median(@currencies.pluck(:buy_price)))}
+      .col-md-6
+        %h5 Sell stats (10 courses)
+        %h5 Average #{sprintf('%.4f', @currencies.average(:sell_price))}
+        %h5 Median #{sprintf('%.4f', median(@currencies.pluck(:sell_price)))}
+
+    %br
+    %h4 Last courses
+    %br
+    %table.table
+      %tr
+        %th Exchange
+        %th Date
+        %th Buy price
+        %th Sell price
+      -@currencies.each do |c|
+        %tr
+          %td= link_to c.exchange.name, money_path(c.exchange.id)
+          %td= c.exchange.date
+          %td= c.buy_price
+          %td= c.sell_price
+    =link_to 'Back', :back, class: 'btn btn-default'
+
+  .col-md-5.col-md-offset-1
+    %h4 Buy price in last 10 courses
+    = bar_chart @currencies.group(:buy_price).sum(:buy_price)
+    %h4 Sell price in last 10 courses
+    = bar_chart @currencies.group(:sell_price).sum(:sell_price)
+
+
 
