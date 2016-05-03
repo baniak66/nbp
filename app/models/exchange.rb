@@ -12,6 +12,7 @@ class Exchange < ActiveRecord::Base
     # IO.copy_stream(open('http://www.nbp.pl/kursy/xml/LastC.xml'), 'LastC.xml')
     ex_hash = Hash.from_xml(download)
     ex_name = ex_hash['tabela_kursow']['numer_tabeli']
+    ex_date = ex_hash['tabela_kursow']['data_notowania']
     positions = ex_hash['tabela_kursow']['pozycja']
     key_map = { 'nazwa_waluty' => 'name',
                 'przelicznik' => 'converter',
@@ -29,7 +30,7 @@ class Exchange < ActiveRecord::Base
     end
 
     params = { exchange: {
-      name: ex_name, currencies_attributes: [
+      name: ex_name, date: ex_date, currencies_attributes: [
         positions
       ][0]
     }}
@@ -38,6 +39,5 @@ class Exchange < ActiveRecord::Base
   def save_current_rates
     Exchange.create(get_nbp_xml[:exchange])
   end
-
 
 end

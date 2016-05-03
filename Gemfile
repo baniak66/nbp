@@ -17,6 +17,7 @@ gem 'sidekiq'
 gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate'
 gem "chartkick"
+gem 'groupdate'
 
 group :development do
   gem 'better_errors'

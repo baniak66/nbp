@@ -79,6 +79,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    groupdate (2.5.3)
+      activesupport (>= 3)
     haml (4.1.0.beta.1)
       tilt
     haml-rails (0.5.1)
@@ -220,6 +222,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   figaro
+  groupdate
   haml-rails
   html2haml
   jbuilder (~> 1.2)
