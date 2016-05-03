@@ -33,6 +33,8 @@ group :development, :test do
 end
 group :production do
   gem 'unicorn'
+  gem 'raindrops', '~> 0.12.0'
+  gem 'rails_12factor'
 end
 group :test do
   gem 'capybara'
