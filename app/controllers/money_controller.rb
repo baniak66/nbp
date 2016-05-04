@@ -22,9 +22,10 @@ class MoneyController < ApplicationController
     @exchange.save_current_rates
     ex_after = Exchange.all.count
     unless ex_before == ex_after
+      UserNotifyWorker.perform_async
       redirect_to money_index_path, notice: 'New exchange added!'
     else
-      redirect_to money_index_path, flash: {error: 'New exchange not available!'}
+      redirect_to money_index_path, notice: 'New exchange not available!'
     end
   end
 
