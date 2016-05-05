@@ -18,6 +18,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate'
 gem "chartkick"
 gem 'groupdate'
+gem 'puma'
 
 group :development do
   gem 'better_errors'
@@ -28,11 +29,9 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'puma'
   gem 'rspec-rails'
 end
 group :production do
-  gem 'unicorn'
   gem 'rails_12factor'
 end
 group :test do
