@@ -40,4 +40,10 @@ class Exchange < ActiveRecord::Base
     Exchange.create(get_nbp_xml[:exchange])
   end
 
+  def get_txt
+    download = open("http://www.nbp.pl/kursy/xml/dir.txt")
+    IO.copy_stream(download, 'dir.txt')
+    array = IO.readlines 'dir.txt'
+  end
+
 end
