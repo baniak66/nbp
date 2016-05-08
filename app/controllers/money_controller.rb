@@ -1,5 +1,7 @@
 class MoneyController < ApplicationController
 
+  before_action :authenticate_user!, only: [:report, :refresh_rates]
+
   def index
     @exchanges = Exchange.paginate(:page => params[:page], :per_page => 10).order('date DESC')
   end
