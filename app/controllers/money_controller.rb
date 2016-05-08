@@ -1,21 +1,14 @@
 class MoneyController < ApplicationController
 
   def index
-    #show list of exchange rates with creation time
-    #don't forget about pagination
-    @exchanges = Exchange.paginate(:page => params[:page], :per_page => 10)
+    @exchanges = Exchange.paginate(:page => params[:page], :per_page => 10).order('date DESC')
   end
 
   def show
-    #show table of currencies for selected exchange rate
     @exchange = Exchange.find(params[:id])
   end
 
   def refresh_rates
-    #for manual refreshing
-    #get latest exchange rates and save to db
-    #can be helpful:
-    #http://www.nbp.pl/home.aspx?f=/kursy/instrukcja_pobierania_kursow_walut.html
     @exchanges = Exchange.all
     ex_before = Exchange.all.count
     @exchange = Exchange.new
@@ -31,12 +24,11 @@ class MoneyController < ApplicationController
 
   def report
     @currencies = Currency.all.where(code: params[:code]).limit(10)
-    #generate a report for selected currency
-    #report should show: basic statistics: mean, median, average
-    #also You can generate a simple chart(use can use some js library)
-
-    #this method should be available only for currencies which exist in the database
   end
 
+  def currency
+    @currencies = Currency.paginate(:page => params[:page], :per_page => 15).where(code: params[:code])
+    @currency = @currencies.first
+  end
 
 end

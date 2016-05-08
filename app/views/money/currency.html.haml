@@ -1,0 +1,17 @@
+%h3 #{@currency.name} #{@currency.code}
+%h4 Converter: #{@currency.converter}
+
+%table.table
+  %tr
+    %th Date
+    %th Buy price
+    %th Sell price
+  -@currencies.each do |c|
+    %tr
+      %td= c.exchange.date
+      %td= c.buy_price
+      %td= c.sell_price
+
+= will_paginate @currencies
+%br
+= link_to 'Back', report_path(code: @currency.code), class: 'btn btn-default'

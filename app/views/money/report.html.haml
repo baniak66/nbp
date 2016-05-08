@@ -19,7 +19,7 @@
         %h5 Median #{sprintf('%.4f', median(@currencies.pluck(:sell_price)))}
 
     %br
-    %h4 Last courses
+    %h4 Last courses #{link_to 'Show all', currency_path(code: @currencies.first.code), class: "btn btn-default btn-sm"}
     %br
     %table.table
       %tr

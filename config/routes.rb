@@ -5,4 +5,5 @@ Tshtask::Application.routes.draw do
   resources :money, except: [:delete, :edit, :update, :create, :new]
   get '/report', to: 'money#report', as: 'report'
   get '/refresh', to: 'money#refresh_rates', as: 'refresh'
+  get '/currency', to: 'money#currency', as: 'currency'
 end
